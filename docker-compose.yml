@@ -1,0 +1,21 @@
+version: '2'
+services:
+  bot:
+    restart: always
+    build: .
+    links:
+      - redis
+    environment:
+      - SLACK_TOKEN=[your-slack-token]
+      - SLACK_CHANNEL_ID=[your-channel-id]
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+  redis:
+    image: redis:alpine
+    volumes:
+      - data_redis:/data
+
+volumes:
+  data_redis:
+    driver: local
